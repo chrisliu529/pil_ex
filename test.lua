@@ -21,3 +21,13 @@ local function test_concat (c)
    assert ("abc" == c("a", "b", "c"))
 end
 test_concat(ex5_1.concat)
+
+local ex5_3 = require "ex5_3"
+local function test_remove_first_arg (r)
+   assert (nil == r(1))
+   local a, b = r(1, 2)
+   assert (a == 2 and b == nil)
+   local a, b = r(1, 2, 3)
+   assert (a == 2 and b == 3)
+end
+test_remove_first_arg(ex5_3.remove_first_arg)
