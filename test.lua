@@ -9,9 +9,15 @@ local function test_poly (p)
    assert (p({1, 1}, 1) == 2)
    assert (p({1, 1, 1}, 1) == 3)
    assert (p({1, 1, 1}, 2) == 7)
+   -- test cases from Exercise 6.2
+   assert (p({3, 0, 1}, 0) == 1)
+   assert (p({3, 0, 1}, 5) == 76)
+   assert (p({3, 0, 1}, 10) == 301)
 end
 
+print 'testing ex3_3'
 test_poly(ex3_3.polynomial)
+print 'testing ex3_4'
 test_poly(ex3_4.polynomial)
 
 local ex5_1 = require "ex5_1"
