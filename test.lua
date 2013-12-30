@@ -45,3 +45,18 @@ local function test_remove_first_arg (r)
    assert (a == 2 and b == 3)
 end
 test_remove_first_arg(ex5_3.remove_first_arg)
+
+local ex8_1 = require "ex8_1"
+local f = ex8_1.loadwithprefix("return ", "1")
+assert (f() == 1)
+local function reader()
+   local i = 0
+   function _reader()
+      local content = {"tryme() ", "return 2 ", "end ", "return tryme()"}
+      i = i + 1
+      return content[i]
+   end
+   return _reader
+end
+f = ex8_1.loadwithprefix("local function ", reader())
+assert (f() == 2)
