@@ -15,9 +15,7 @@ local function test_poly (p)
    assert (p({3, 0, 1}, 10) == 301)
 end
 
-print 'testing ex3_3'
 test_poly(ex3_3.polynomial)
-print 'testing ex3_4'
 test_poly(ex3_4.polynomial)
 
 local ex6_2 = require "ex6_2"
@@ -25,7 +23,6 @@ local function poly_f (coeffients, x)
    local f = ex6_2.polynomial_f(coeffients)
    return f(x)
 end
-print 'testing ex6_2'
 test_poly(poly_f)
 
 local ex5_1 = require "ex5_1"
@@ -60,3 +57,11 @@ local function reader()
 end
 f = ex8_1.loadwithprefix("local function ", reader())
 assert (f() == 2)
+
+local ex8_2 = require "ex8_2"
+local f, m = ex8_2.multiload("local function foo()",
+			     "local x = 10;",
+			     "local y = 1;",
+			     "return x+y end;",
+			     "return foo()")
+assert (f() == 11)
