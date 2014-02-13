@@ -59,9 +59,39 @@ f = ex8_1.loadwithprefix("local function ", reader())
 assert (f() == 2)
 
 local ex8_2 = require "ex8_2"
-local f, m = ex8_2.multiload("local function foo()",
+local f = ex8_2.multiload("local function foo()",
 			     "local x = 10;",
 			     "local y = 1;",
 			     "return x+y end;",
 			     "return foo()")
 assert (f() == 11)
+
+local ex8_3 = require "ex8_3"
+
+local function t8_3(s, n)
+   local f = ex8_3.stringrep1(s, n)
+   return f()
+end
+
+local function test_stringrep(f)
+   assert ("aaaaa" == f("a", 5))
+   assert ("ab" == f("ab", 1))
+   assert ("abab" == f("ab", 2))
+end
+
+test_stringrep(ex8_3.stringrep)
+test_stringrep(t8_3)
+
+local function bench_stringrep(f, s, n)
+   local x = os.clock()
+   f(s, n)
+   return os.clock() - x
+end
+print(bench_stringrep(ex8_3.stringrep, "a", 10000000))
+print(bench_stringrep(t8_3, "a", 10000000))
+--[[
+   The performance of our tailor-made function is faster than the generic function
+   in Listing 8.2. However, it's probably not worthy doing so because the generic version
+   is much easier to be understood. BTW, with a very low time complexity O(log_2(n)),
+   the bottleneck lies in memory size instead of CPU time
+--]]
